@@ -1,5 +1,8 @@
 package com.example.jeh80.listviewtest;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new AlarmHATT(getApplicationContext()).notificationTest();
         refreshActivity();
         listViewIndex();
+
     }
 
-    private void listViewIndex()
-    {
+    private void listViewIndex() {
         ListView listView;
         ListViewAdapter adapter;
 
@@ -43,14 +49,11 @@ public class MainActivity extends AppCompatActivity {
                 String titleStr = item.getTitle();
                 String descStr = item.getDesc();
                 Drawable iconDrawable = item.getIcon();
-
-
             }
         });
     }
 
-    private void refreshActivity()
-    {
+    private void refreshActivity() {
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -62,4 +65,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public class AlarmHATT {
+        private Context context;
+
+        public AlarmHATT(Context context) {
+            this.context = context;
+        }
+
+        public void notificationTest() {
+            AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(MainActivity.this, NotificationTest.class);
+
+            PendingIntent sender = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 37, 0);
+
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+        }
+    }
+
+
 }
