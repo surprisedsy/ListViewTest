@@ -21,8 +21,7 @@ public class NotificationTest extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.apple).setTicker("HETT").setWhen(System.currentTimeMillis())
                 .setNumber(1)
                 .setContentTitle("유통기한 알림")
-                .setContentText("며칠 안남았음 빨리 드셈")
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)         // setDefaults 삭제된 함수인듯. 나중에 지우고 써보기
+                .setContentText("며칠 안남았음 빨리 드셈")         // setDefaults 삭제된 함수인듯. 나중에 지우고 써보기
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 

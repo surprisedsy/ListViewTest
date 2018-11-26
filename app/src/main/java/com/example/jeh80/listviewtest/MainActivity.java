@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.Calendar;
@@ -21,11 +23,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.drawer);
 
+        drawerTest();
         new AlarmHATT(getApplicationContext()).notificationTest();
         refreshActivity();
         listViewIndex();
-
     }
 
     private void listViewIndex() {
@@ -86,5 +89,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void drawerTest()
+    {
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        final View drawerView = (View) findViewById(R.id.drawer);
 
+        Button btnOpenDrawer = (Button) findViewById(R.id.btn_OpenDrawer);
+        Button btnCloseDrawer = (Button) findViewById(R.id.btn_CloseDrawer);
+
+        btnOpenDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawerView);
+            }
+        });
+
+        btnCloseDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(drawerView);
+            }
+        });
+    }
 }
