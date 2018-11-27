@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setContentView(R.layout.drawer);
 
         drawerTest();
         new AlarmHATT(getApplicationContext()).notificationTest();
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onRefresh() {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
 
                 swipeRefreshLayout.setRefreshing(false);
             }
